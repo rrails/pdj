@@ -1,0 +1,28 @@
+%div.row
+  - @restaurant.errors.each do |attribute, message|
+    %span.error
+    =attribute
+    =message
+  - if @restaurant.errors.any?
+    %div.error_explanation
+    %ul
+  %div#userprofile
+    %div.large-4.columns.signup
+      = form_for @restaurant do |f|
+        = f.label :name
+        = f.text_field :name
+        = f.label :address
+        = f.text_field :address
+        = f.label :email
+        = f.text_field :email
+        = f.label :phone
+        = f.text_field :phone
+        = f.file_field :avatar
+        - if @restaurant.avatar?
+          = image_tag @restaurant.avatar.url(:medium)
+          %span delete image
+          = check_box_tag 'img_delete'
+        = f.label :cuisine
+        = f.select :cuisine_id, Cuisine.all.collect {|e| [e.name,e.id]}
+        = f.submit "Update Restaurant", :class => 'button radius'
+%div.large-9.columns

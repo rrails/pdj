@@ -1,0 +1,18 @@
+%div.row
+%div.columns.large-5.signin
+  = form_for @plat do |plat|
+    = plat.label :description
+    = plat.text_field :description
+    = plat.label :price
+    = plat.text_field :price
+    = plat.file_field :avatar
+    - if @plat.avatar?
+      = image_tag @plat.avatar.url(:medium)
+      %span delete image
+      = check_box_tag 'img_delete'
+    = plat.label :release
+    = plat.datetime_select :release, :type => 'date', :discard_minute => true
+    = plat.submit "Update Plats", :class => 'button radius tiny'
+    = link_to('Cancel', plats_path, :class => 'button radius tiny')
+
+%div.columns.large-9

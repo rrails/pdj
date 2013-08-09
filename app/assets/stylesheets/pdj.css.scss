@@ -1,0 +1,87 @@
+
+body {
+  background: url(/images/paris.jpg);
+  background-size: cover;
+  padding: 30px;
+}
+
+
+#map_canvas {
+  width: 100%;
+  height: 400px;
+}
+
+
+#menu {
+  display: inline;
+}
+
+
+// hr {
+//   color: #999;
+//   padding: 5px;
+// }
+
+
+
+// .horiz {
+//   display: inline;
+// }
+
+
+.invisible {
+  display: none!important;
+}
+
+input[type="password"].horiz {
+    width: 217px;
+    display: inline;
+}
+
+input[type="submit"].horiz {
+    display: inline;
+    // margin-left: 61px;
+}
+
+.signin {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding-top: 15px;
+  background-color: #ddd;
+  background: -webkit-linear-gradient(top,#fff 0,#ddd 100%);
+}
+
+.signup {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding-top: 15px;
+  background-color: #ddd;
+  background: -webkit-linear-gradient(top,#fff 0,#ddd 100%);
+}
+
+.sign_up{
+
+}
+
+
+.content {
+  width: 90%;
+}
+
+input#search_field {
+  max-width: 80%;
+}
+
+.right {
+float: right !important;
+margin-right: 70px;
+}
+
+.section-container.auto {
+  width: 80%;
+}
+
+
+%ul.large-block-grid-2 > li { clear: none !important; }

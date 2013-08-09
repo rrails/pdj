@@ -1,0 +1,16 @@
+%div
+  %div= link_to('Create Plat', new_plat_path, :class => 'button radius tiny')
+  %div.columns.large-6.signin
+    -@plats.each do |plat|
+      %ul.no-bullet
+        %li
+          %span.description= plat.description
+          %span.price= number_to_currency plat.price
+        - if plat.avatar?
+          = image_tag plat.avatar.url(:medium)
+        %li.release= plat.release.strftime("%d-%b-%Y")
+        %li
+          = link_to('Edit', edit_plat_path(plat), :class => 'button radius tiny')
+          = link_to('Delete', plat, :method => :delete, :confirm => 'Really?', :class => 'button radius alert tiny')
+        %hr
+%div.columns.large-9

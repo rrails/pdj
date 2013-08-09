@@ -1,0 +1,57 @@
+%div.row
+  %div.large-3.columns
+    = form_for @user do |f|
+      = f.label :name
+      = f.text_field :name, :autofocus => true
+      = f.label :email
+      = f.text_field :email
+      = f.label :address
+      = f.text_field :address
+      = f.label :password
+      = f.password_field :password
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation
+      = f.submit "Update Profile", :class => 'button radius'
+  %div.large-9.columns
+
+
+  @fruit = Fruit.new(:name => params[:name])
+
+   @fruit = Fruit.create(:name => 'Pineapple')
+   post :create, { :name => "Strawberry" }
+--------
+
+    @user = User.create(params[:user])
+      post :create, { :user => {:name  => "Joe"}}
+
+
+
+sign in/sign up - a checkbox
+  diplay the for sign in/sign up form
+  user doesn't check box - it's a user
+  hit submit
+  on click of submit
+  jquery looks at check box , validate input
+    if not valid data return with errors
+
+    if not ticked then build msage for user
+    otherwise build message for rest
+
+  I send message via ajax to server
+
+      server  validates message
+      responds with errors or saves to database and redirects to profile
+  then user enters data
+    hit submit
+      jquery validate message
+      if errors return
+      else
+      ....
+
+
+
+  - signup
+  - do user validation in javascript
+  - then return true and let it go through normal route
+
+

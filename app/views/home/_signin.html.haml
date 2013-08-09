@@ -1,0 +1,10 @@
+%div.row
+  %div.columns.large-5.signin
+    = form_tag '/signin' do
+      = label_tag :name
+      = text_field_tag :name, nil, :autofocus => true
+      %div
+        = label_tag :password
+        = password_field_tag :password, nil,:class => 'horiz'
+        = submit_tag 'Sign in', :class => 'horiz sign_in button radius'
+  %div.columns.large-9

@@ -1,0 +1,14 @@
+%div.row
+  %div.check
+    %input{:type=>"checkbox", :id=>"is_restaurant", :checked=>true} &nbsp; Are you a Restaurant?
+  %div.large-5.columns.signup
+    = form_for @user do |f|
+      = f.label :name
+      = f.text_field :name, :autofocus => true
+      = f.label :password
+      = f.password_field :password
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation
+      = hidden_field_tag 'is_restaurant'
+      = f.submit "Sign Up", :class => 'sign_up button radius'
+  %div.large-9.columns

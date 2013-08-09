@@ -1,0 +1,36 @@
+%div#h1
+  %h1
+    Les Plats Du Jours Aujourd'hui
+
+%div#search
+  = text_field_tag :address, nil,  :placeholder => 'SEARCH ', :id =>"search_field"
+  = button_tag 'Search', :id => 'search_submit', :class => 'button radius'
+
+-@platscuisine.each do |name|
+  %div#menu= check_box_tag(name, '', checked = true, :class => 'show_cuisine')
+  =name
+
+.section-container.auto{"data-section" => ""}
+  %section
+    %p.title{"data-section-title" => ""}
+      %a{:href => "#panel1"} MAP
+    .content{"data-section-content" => ""}
+      %div#map_canvas
+  %section
+    %p.title{"data-section-title" => ""}
+      %a{:href => "#panel2"} LIST
+    #rest_list.content{"data-section-content" => ""}
+      -@plats.each do |plat|
+        %ul.large-block-grid-2{:class => plat.restaurant.cuisine.name}
+          %li
+            %script
+              = "$(document).ready(function () {"
+              = "add_marker(#{plat.restaurant.latitude}, #{plat.restaurant.longitude}, '#{plat.restaurant.name}', '#{plat.restaurant.cuisine.icon}', '#{plat.restaurant.cuisine.name}');"
+              = "});"
+            %div#icon= image_tag(plat.restaurant.cuisine.icon)
+            %div#resto= plat.restaurant.name
+            / %div#cuisine= plat.restaurant.cuisine.name
+            %div#des= plat.description
+            %div#price= number_to_currency plat.price
+    / -@plats.each do |plat|
+    /   %div#plat= plat.description

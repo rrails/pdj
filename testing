@@ -1,0 +1,43 @@
+1. does the restaurant model exist
+2. does it have the correct attributes
+3. test relationship
+4. do we home page
+5. create a restaurant
+6.
+
+1. create a restaurant
+    it should a have name
+    test each attribute
+
+2. sign up
+3. sign
+
+
+1, Restaurant model
+  - test
+  desc res
+    class.shouldbe
+
+  - validation tests
+    describe an invalid res
+      before rest .new
+
+          without a name not valid
+          without a email not valid
+
+  - descr a valid res
+      test - it exists
+        name
+        it should have email add
+        it should have a phone
+
+        end
+
+
+2. Controller testing
+  - home page
+  - html
+  - json
+  - signup
+  - signin
+  -

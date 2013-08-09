@@ -1,0 +1,12 @@
+%div.columns.large-3.signin
+  = form_for @plat do |f|
+    = f.label :description
+    = f.text_field :description
+    = f.label :price
+    = f.text_field :price
+    = f.label :image
+    = f.text_field :image
+    = f.label :release
+    = f.datetime_select :release, :default => Date.today, :type => 'date', :discard_minute => true
+    = f.submit 'Platter', :class => 'button radius'
+%div.columns.large-9
