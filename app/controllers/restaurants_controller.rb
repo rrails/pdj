@@ -28,7 +28,7 @@ class RestaurantsController < ApplicationController
     result = Geocoder.search(params[:location]).first
     @lat = result.latitude #created a lat and long variable to pass back to the browser
     @long = result.longitude
-
+binding.pry
     respond_to do |format|
       format.json{
         render :json => {

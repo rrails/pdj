@@ -26,18 +26,37 @@ require 'spec_helper'
 
 describe User do
   before do
-      @user = User.new
+    user = User.create(:name => 'Sam', :address => '700 harris st Sydney', :phone => '12345678', :email => 'sam@hotmail.com', :image => 'http://icons.iconarchive.com/icons/custom-icon-design/all-country-flag/32/Thailand-Flag-icon.png', :city => 'Sydney',  :password => 'a', :password_confirmation => 'a')
+  end
+  it "should have an id " do
+    user.id.should_not be_nil
   end
 
-    # it "has invalid name" do
-    #   @user.valid?.should be_false
-    # end
+  it "should have a name" do
+    user.name.should == 'Sam'
+  end
 
-    # it "has a valid name" do
-    #   @user.name = "Lego"
-    #   # @user.address = "108 Harris Street"
-    #   # @user.phone = "043499123"
-    #   # @user.email = "Lego@gmail.com"
-    #   @user.valid?.should be_true
-    # end
+  it "should have an address" do
+    user.address.should == '700 harris st Sydney'
+  end
+
+  it "should have a phone number" do
+    user.phone.should == '12345678'
+  end
+
+  it "should have an email" do
+    user.email.should == 'sam@hotmail.com'
+  end
+
+  it "should have an image" do
+    user.image.should == 'http://icons.iconarchive.com/icons/custom-icon-design/all-country-flag/32/Thailand-Flag-icon.png'
+  end
+
+  it "should have geocoder pick up the longitude based on the address" do
+    user.longitude.should == 151.2014587
+  end
+
+   it "should have geocoder pick up the latitude based on the address" do
+    user.latitude.should == -33.8824992
+  end
 end
