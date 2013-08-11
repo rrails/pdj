@@ -30,11 +30,13 @@ describe UsersController do
 
   describe 'Get Edit' do
     before do
-      get :edit
+      @cuser = User.create(:name => 'Pear', :password => "a", :password_confirmation => "a")
+      @user = User.find(@cuser.id)
     end
 
     it 'should respond with a status 200' do
-      expect(response).to eq(302)
+      get :edit,id: @user.id
+      expect(response.status).to eq(200)
       expect(response).to render_template("edit")
     end
   end
