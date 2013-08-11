@@ -102,7 +102,6 @@ describe PlatsController do
     it 'price should be updated to 20.00' do
       @updatedplat.price.should eq(20)
       expect(response).to(redirect_to(plats_path))
-
     end
 
     it ' should delete the image' do
