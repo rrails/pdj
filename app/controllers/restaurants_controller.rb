@@ -1,3 +1,4 @@
+
 class RestaurantsController < ApplicationController
   # before_filter :ensure_logged_in #calls from application controller code to ensure you redirect home when not logged in (instead of an error)
   def index
@@ -28,7 +29,6 @@ class RestaurantsController < ApplicationController
     result = Geocoder.search(params[:location]).first
     @lat = result.latitude #created a lat and long variable to pass back to the browser
     @long = result.longitude
-binding.pry
     respond_to do |format|
       format.json{
         render :json => {
@@ -50,9 +50,9 @@ binding.pry
     end
   end
 
-  def destroy
-    restaurant = Restaurant.find(params[:id])
-    restaurant.destroy
-    redirect_to(restaurants_path)
-  end
+  # def destroy
+  #   restaurant = Restaurant.find(params[:id])
+  #   restaurant.destroy
+  #   redirect_to(restaurants_path)
+  # end
 end

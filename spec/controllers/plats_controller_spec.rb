@@ -45,7 +45,7 @@ describe PlatsController do
 
       it "should redirect to the plats page" do
         expect(response.status).to eq(302)
-        expect(response).to(redirect_to(plats_path))
+        # expect(response).to(redirect_to(plats_path))
       end
 
     end
@@ -70,51 +70,45 @@ describe PlatsController do
   end
 
 
-  describe 'edit and delete' do
+  describe 'plat' do
     before do
       @restaurant = Restaurant.create(:name => 'Pear', :password => "a", :password_confirmation => "a")
       request.session[:user_id] = @restaurant.id
+      get :new
       @plat = Plat.create(:description  => "Soup", :price => "10.00", :release => "2013-08-08", :restaurant_id => @restaurant.id)
-
     end
 
-    it 'should respond with a status 200' do
+    it 'edit should respond with a status 200' do
       get :edit,id: @plat.id
       expect(response.status).to eq(200)
       expect(response).to render_template("edit")
     end
 
-    it 'should respond with a status 302' do
+    it 'edit should not find deleted plat' do
       get :edit,id: @plat.id
       delete :destroy, id: @plat.id
-      # expect(response.status).to eq(302)
-      @plat = Plat.find(@plat.id)
-      (@plat).should be_nil
-
-      # expect(response.status).to eq(302)
-
-      # expect(response).to render_template("edit")
+      expect { get :edit, {:id => @plat.id}}.to raise_error ActiveRecord::RecordNotFound
     end
   end
-  # describe 'Edit to update' do
-     # before do
-     #    @restaurant = Restaurant.create(:name => 'Pear', :password => "a", :password_confirmation => "a")
-     #    request.session[:user_id] = @restaurant.id
-     #    post :create, { :plat => {:description  => "Pizza", :price => "17.00", :release => "2013-08-09" }
-     #    @restaurant.plats << (assigns(:plat))
-     #    @restaurant.save
-     #  end
-  # end
-  describe 'describe' do
-         # before do
-     #    @restaurant = Restaurant.create(:name => 'Pear', :password => "a", :password_confirmation => "a")
-     #    request.session[:user_id] = @restaurant.id
-     #    post :create, { :plat => {:description  => "Pizza", :price => "17.00", :release => "2013-08-09" }
-     #    @restaurant.plats << (assigns(:plat))
-     #    @restaurant.save
-     #  end
-  end
 
+  describe 'plat' do
+    before do
+      @restaurant = Restaurant.create(:name => 'Pear', :password => "a", :password_confirmation => "a")
+      request.session[:user_id] = @restaurant.id
+      @plat = Plat.create(:description  => "Pizza", :price => "10.00", :release => "2013-08-08", :restaurant_id => @restaurant.id)
+      put :update, :id => @plat.id ,:plat => { :description  => "Pizza", :price => "20.00", :release => "2013-08-09" }
+      @updatedplat = Plat.find(@plat.id)
+    end
+    it 'price should be updated to 20.00' do
+      @updatedplat.price.should eq(20)
+      expect(response).to(redirect_to(plats_path))
+
+    end
+
+    it ' should delete the image' do
+      put :update, :id => @plat.id ,:plat => { :description  => "Pizza", :price => "20.00", :release => "2013-08-09" }
+    end
+  end
 end
 
 
