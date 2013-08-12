@@ -31,7 +31,7 @@ API
   paperclip - used for uploading images
   fancy-box plugin
 
-Skitch                          For drawing the screens
+Balsamic                        For drawing the screens
 paperclip                       uploading information on system
 heroku                          Demo of website - plats2.heroku.com
 github                          source control
