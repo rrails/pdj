@@ -23,9 +23,6 @@ describe RestaurantsController do
         expect(response).to be_success
         expect(response.status).to eq(200)
       end
-#     it 'should give an instance variable called restaurants' do
-#       expect(assigns(@restaurants)).to be
-#     end
 
     it "should render the index template" do
         expect(response).to render_template("index")
@@ -33,39 +30,6 @@ describe RestaurantsController do
 
     end
 
-#   it 'should be able to access all the plats from the restaurant controller' do
-#       expect(assigns(@plats)).to be
-#     end
-
-#     it "should not get plats older than yesterday at 11am" do
-#       expect(assigns(@plats.first.release)).to be > Time.new(2013, 8, 7, 11, 0 ,0)
-#     end
-
-#   #   it "should get the plats cusine names" do
-#   #   expect(:name).to eq('Thai')
-#   # end
-
-
-
-#     # it "should not get plats newer than today at 11am" do
-#     #   expect(assigns(:release)).to be < (Time.new(2013, 8, 8, 11, 0 ,0)
-#     # end
-
-
-#     # describe '#search' do
-
-#     #   it 'should return results from ' do
-
-#  describe 'as edit' do
-#       before do
-#         get :edit
-#     end
-
-#     it "should render the edit form" do
-#       response.should render_template("edit")
-#     end
-
-    # end
   end
 
   describe 'restaurant' do
@@ -87,19 +51,29 @@ describe RestaurantsController do
     end
   end
 
-  # describe 'POST to create' do
-  #   describe 'a restaurant with valid informaton' do
-  #     before do
-  #       post :create, { :restaurant => {:name => 'Lush Bucket', :password => "a", :password_confirmation => "a",:cuisine_id => '2'}}
-  #     end
+  describe 'search' do
+    describe 'a restaurant' do
+      before do
+        post :search, :location => '112 Harris Street,Sydney'
+      end
 
-  #     it 'should redirect to the restaurants page' do
-  #       # expect(response.status).to eq(302)
-  #       expect(response).to(redirect_to(edit_restaurant_path(@restaurant)))
-  #     end
-  #   end
-  # end
+      it 'should respond with a JSON message' do
+  #       expect(response.status).to eq(302)
+      end
+    end
+  end
 
+  describe 'create' do
+    describe 'a restaurant' do
+      before do
+        post :create, {:user=>{:name => 'Lego', :password => "a", :password_confirmation => "a"}}
+      end
+
+      it 'should create a restaurant' do
+        expect(response.status).to eq(302)
+      end
+    end
+  end
 
 
 

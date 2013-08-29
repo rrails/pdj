@@ -19,6 +19,8 @@ gem 'carrierwave'
 gem 'factory_girl'
 gem 'aws-sdk'
 gem 'client_side_validations'
+gem 'guard-rspec'
+gem 'sqlite3'
 
 # Gems used only for assets and not required
 # in production environments by default.

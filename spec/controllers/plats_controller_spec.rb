@@ -63,7 +63,7 @@ describe PlatsController do
       end
 
       it "should render the plats template" do
-        expect(response).to render_template("plats")
+        expect(response).to(redirect_to(plats_path))
       end
     end
 

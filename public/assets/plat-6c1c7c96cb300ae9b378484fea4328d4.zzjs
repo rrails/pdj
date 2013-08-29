@@ -1,0 +1,167 @@
+$(document).ready(function() {
+
+var clear_form = function(){
+  $('#description').val('');
+  $('#release').val('');
+  $('#price').val('');
+  $('#image').val('');
+  }
+
+var toggle_form = function(){
+  $('#new_plat').toggle();
+  $('.platform').toggleClass('invisible');
+  clear_form();
+  return false;
+  }
+
+var display_plat = function (plat) {
+    var $ul = $('<ul/>').addClass('no-bullet');
+    var $li0 = $('<li/>').attr('id', 'plat_' + plat.id);
+    var $li1 = $('<li/>').addClass('description').text(plat.description);
+    var $li2 = $('<li/>').addClass('release');
+    var $li3 = $('<li/>').addClass('price').text(plat.price);
+    var $li4 = $('<li/>').addClass('image').text(plat.image);
+    var $li5 = $('<li/>').addClass('restaurant_id invisible').text(plat.restaurant_id);
+    var $li6 = $('<li/>').addClass('plat_id invisible').text(plat.id);
+    var $li7 = $('<li/>').html('<button class="edit_plat button radius tiny" name="button" type="submit">edit plat</button> <button class="delete_plat button radius tiny alert" name="button" type="submit">Delete Plat</button>');
+    var $li8 = $('<hr/>');
+    if (plat.release != null) {
+      $li2.text(moment(plat.release).format('LL'));
+    }
+    $ul.append([$li1, $li2, $li3, $li4,$li5,$li6,$li7,$li8]);
+    $li0.append($ul);
+    $('#plats').append($li0);
+  }
+
+var new_plat = function(){
+  if ($('.platform').is(':hidden'))
+      toggle_form();
+
+  $("#create_plat").show();
+  $("#update_plat").hide();
+  }
+
+var add_plat_everywhere = function(plat){
+    // this might be an update, so remove the old plat if it's in the array
+  plats = _.reject(plats, function(t) {
+    return t.id === plat.id;
+    });
+    //now add/re-add
+  plats.push(plat);
+  plats = _.sortBy(plats, function(p){
+      return p.release;
+  }).reverse();
+
+  $('#plats').empty(); //this gives a flicker on the screen which is annoying.
+    _.each(plats,display_plat);
+    toggle_form();
+  };
+
+var create_plat = function () {
+  var description = $('#description').val();
+  var release = $('#release').val();
+  var price = $('#price').val();
+  var image = $('#image').val();
+  var plat_id = $('#plat_id').val();
+  var restaurant_id = $('#restaurant_id').val();
+
+  var token = $('input[name="authenticity_token"]').val();
+  $.ajax({
+      dataType: 'json',
+      type: 'POST',
+      url: '/plats',
+    data: {
+      authenticity_token: token,
+       plat: {
+        description: description,
+        release: release,
+        price: price,
+        image: image,
+        restaurant_id: restaurant_id
+        }
+      }
+    }).done(add_plat_everywhere).error(function (message) {debugger;console.log(message);
+    });
+  return false;
+  }
+
+var edit_plat = function () {
+  if ($('.platform').is(':hidden'))
+    toggle_form();
+  $("#create_plat").hide();
+  $("#update_plat").show();
+  var ul = $(this).closest('ul');
+
+  var id = ul.find('.plat_id').text();
+  var description = ul.find('.description').text();
+  var release = ul.find('.release').text();
+
+  var price = ul.find('.price').text();
+  var image = ul.find('.image').text();
+  var restaurant_id = ul.find('.restaurant_id').text();
+
+  $('#plat_id').val(id);
+  $('#description').val(description);
+  if (release != null && release != '') {
+    $('#release').val(moment(release).format('YYYY-MM-DD'));
+  }
+  $('#price').val(price);
+  $('#image').val(image);
+  $('#restaurant_id').val(restaurant_id);
+  };
+
+var update_plat = function () {
+  var description = $('#description').val();
+  var release = $('#release').val();
+  var price = $('#price').val();
+  var image = $('#image').val();
+  var restaurant_id = $('#restaurant_id').val();
+  var plat_id = $('#plat_id').val();
+  var token = $('input[name="authenticity_token"]').val();
+  $.ajax({
+    dataType: 'json',
+    type: 'POST',
+    url: '/plats/' + plat_id,
+    data: {
+      '_method': 'put',
+      'authenticity_token': token,
+      'plat[description]': description,
+      'plat[release]': release,
+      'plat[price]': price,
+      'plat[image]': image}
+    }).done(add_plat_everywhere).error(function (message) {
+    });
+  return false;
+  };
+
+var delete_plat = function () {
+  var $this = $(this);
+  var ul = $(this).closest('ul');
+  var id = ul.find('.plat_id').text();
+  $.ajax({
+    type: 'POST',
+    url: '/plats/' + id,
+    data: {
+      _method: 'delete'
+    }
+  }).done(function () {
+      // Update plats array.
+      plats = _.reject(plats, function (t) {
+        return t.id == id;
+      });
+
+      // Remove from page.
+      $this.closest('ul').closest('li').fadeOut(function () {
+        $(this).remove();
+      });
+    });
+  };
+
+$('#plats').on('click', '.edit_plat', edit_plat);
+$('#plats').on('click', '.delete_plat', delete_plat);
+$('#create_plat').click(create_plat);
+$('#cancel_plat').click(toggle_form);
+$('#new_plat').click(new_plat);
+$('#update_plat').click(update_plat);
+
+});

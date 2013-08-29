@@ -43,26 +43,29 @@ describe UsersController do
 
   describe 'Edit Profile' do
     before do
+      # let (:cuser) { User.create(:name => 'Pear', :password => "a", :password_confirmation => "a")}
       @cuser = User.create(:name => 'Pear', :password => "a", :password_confirmation => "a")
-      @user = User.find(@cuser.id)
+      # let (:user) {User.find(cuser.id)}
+      # @user = User.find(@cuser.id)
     end
 
-    # let(:user)  {User.find user.id}
+    let(:user)  {User.find @cuser.id}
+    subject{user}
 
     it "should find the user" do
-      @user.id.should_not be_nil
-      @user.name == "Pear"
+      user.id.should_not be_nil
+      user.name == "Pear"
     end
 
     it "should update the user" do
-      put :update, {:id => @user.id, :user =>{ :address  => "123"}}
-      @user.reload
-      @user.address.should eq("123")
+      put :update, {:id => user.id, :user =>{ :address  => "123"}}
+      user.reload
+      user.address.should eq("123")
     end
 
     it "should redirect the user to restaurant finder" do
-      put :update, {:id => @user.id, :user =>{ :address  => "123"}}
-      @user.reload
+      put :update, {:id => user.id, :user =>{ :address  => "123"}}
+      user.reload
       expect(response.status).to eq(302)
       expect(response).to(redirect_to(restaurants_path))
     end
