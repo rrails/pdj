@@ -27,9 +27,6 @@ class PlatsController < ApplicationController
     @plat=Plat.new(params[:plat])
     @plat.restaurant = @current_user
     @plat.save
-    # plat belongs to a user
-    #@current_user.plats << @plat
-    #@current_user.save
     redirect_to(plats_path)
   end
 

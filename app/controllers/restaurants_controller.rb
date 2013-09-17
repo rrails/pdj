@@ -49,10 +49,4 @@ class RestaurantsController < ApplicationController
       format.json {render :json => {url: (edit_restaurant_path(@restaurant))}}
     end
   end
-
-  # def destroy
-  #   restaurant = Restaurant.find(params[:id])
-  #   restaurant.destroy
-  #   redirect_to(restaurants_path)
-  # end
 end
